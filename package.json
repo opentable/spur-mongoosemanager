@@ -1,0 +1,55 @@
+{
+  "name": "spur-mongoosemanager",
+  "version": "0.0.0",
+  "description": "A very simple node module that gives some generic mongoose manager.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --opts ./test/mocha.opts ./test/"
+  },
+  "author": {
+    "name": "Agustin Colchado",
+    "email": "agustin@colchado.com"
+  },
+  "contributors": [
+    {
+      "name": "Siavash Etemadieh",
+      "email": "ssetem@googlemail.com"
+    },
+    {
+      "name": "Joseph McElroy",
+      "email": "phoey1@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "mongo",
+    "mongoose",
+    "extensions"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/opentable/spur-mongoosemanager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/opentable/spur-mongoosemanager/issues"
+  },
+  "homepage": "https://github.com/opentable/spur-mongoosemanager",
+  "dependencies": {
+    "spur-ioc": "latest",
+    "coffee-script": "^1.8.0",
+    "mongoose-timestamp": "^0.4.0",
+    "mongoose": "^3.8.22",
+    "mongoomise": "0.0.8"
+  },
+  "devDependencies": {
+    "sinon-chai": "^2.6.0",
+    "chai": "^1.10.0",
+    "sinon": "^1.12.2",
+    "mocha": "^2.1.0",
+    "nock": "^0.58.0",
+    "spur-common": "0.0.9"
+  }
+}

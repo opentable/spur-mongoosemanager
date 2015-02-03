@@ -1,6 +1,10 @@
+# Intellij (webstorm)
+.idea
+
 # Logs
 logs
 *.log
+forever
 
 # Runtime data
 pids
@@ -23,6 +27,15 @@ build/Release
 # Commenting this out is preferred by some people, see
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
+bower_components
 
 # Users Environment Variables
 .lock-wscript
+
+# dist folders
+dist
+release-dist
+locales
+
+# sass cache folders
+.sass-cache
