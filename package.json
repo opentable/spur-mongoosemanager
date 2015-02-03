@@ -1,7 +1,7 @@
 {
   "name": "spur-mongoosemanager",
   "version": "0.0.2",
-  "description": "A very simple node module that gives some generic mongoose manager.",
+  "description": "A very simple node module that gives a generic mongoose manager.",
   "main": "index.js",
   "directories": {
     "test": "test"

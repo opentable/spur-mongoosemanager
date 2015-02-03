@@ -1,6 +1,6 @@
 # spur-mongoosemanager
 
-A very simple node module that gives some generic mongoose manager.
+A very simple node module that gives a generic mongoose manager.
 
 The project is still a work in progress. We are in the middle of making adjustments and are starting to dogfood the module in our own applications.
 
