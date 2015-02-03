@@ -6,7 +6,8 @@ module.exports = ()->
 
 
   ioc.registerDependencies {
-    "mongooseSchema":require("mongoose").Schema
+    "mongooseSchema"    : require("mongoose").Schema
+    "mongooseTimestamp" : require "mongoose-timestamp"
   }
 
   ioc.registerFolders __dirname, [
