@@ -11,7 +11,7 @@ module.exports = ()->
 
   ioc.addDependency "config", {
     Mongo:
-      ConnectionUrl:"mongodb://localhost/test-spur-mongoosemanager"
+      ConnectionUrl:"mongodb://127.0.0.1/test-spur-mongoosemanager"
   }
 
   ioc
