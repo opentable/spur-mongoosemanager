@@ -1,57 +1,56 @@
 mongoomise = require "mongoomise"
 
-module.exports = (mongoose, config, Logger, Promise, SpurErrors)->
+module.exports = (mongoose, Logger, Promise, SpurErrors)->
   new class MongooseManager
 
-    init:()->
-      @dbTimeout = config.Mongo?.ConnectionTimeoutMS or 5000
-      @connectionUrl = config.Mongo?.ConnectionUrl
-      unless @connectionUrl
-        throw new Error("Missing mongodb connection url")
-      @connectionOptions =
-        server:
-          socketOptions:
-            connectTimeoutMS: @dbTimeout
-        mongos: true,
-        replset:
-          strategy: 'ping'
+    connect:(@connectionUrl, @connectionOptions = {})->
+      @_verifyConnectionString()
+      @_addDummySchemaToMongoose()
+      @_makeConnection()
+      @_promisifyAll()
 
-    connect:()->
-      @init()
-      Logger.info 'Attempting to connect to mongo'
+    disconnect:()->
+      Promise.promisify(mongoose.disconnect, mongoose)()
+        .tap ()->
+          Logger.info "MongooseManager: Disconnected from mongodb"
+        .catch (e)->
+          Logger.error "MongooseManager: Error disconnecting from mongodb", e
+          Promise.reject(e)
+
+    _verifyConnectionString:()->
+      unless @connectionUrl
+        throw new Error("MongooseManager: Missing mongodb connection url")
+
+    _makeConnection:()->
+      Logger.info 'MongooseManager: Attempting to connect to mongo'
+
+      connectPromise = Promise.promisify(mongoose.connect, mongoose)(@connectionUrl, @connectionOptions)
+        .tap ()->
+          Logger.info("MongooseManager: Connected to mongodb")
+        .catch (e)->
+          Logger.error("MongooseManager: Mongodb connection error", e)
+          Promise.reject(e)
+
+    _addDummySchemaToMongoose:()->
+      # TODO: See if there is a better way to prevent mongoose from hanging when no schema is present.
       dummySchema = mongoose.Schema({
         name: String
       })
 
       dummy = mongoose.model('dummy', dummySchema)
-      @promisifyAll()
 
-      connectPromise = Promise.promisify(mongoose.connect, mongoose)(@connectionUrl)
-        .tap ()->
-          Logger.info "Connected to mongodb"
-        .catch (e)->
-          Logger.error("Mongodb connection error", e)
-          Promise.reject(e)
 
-    promisifyAll:()->
+    _promisifyAll:()->
       mongoomise.promisifyAll(mongoose, {
         lift:true
         promise:(resolver)=>
-          new Promise(resolver).catch(@errorTranslator)
+          new Promise(resolver).catch(@_errorTranslator)
       })
 
-    errorTranslator:(e)->
+    _errorTranslator:(e)->
       if e.code in [11000, 11001]
         return Promise.reject(SpurErrors.AlreadyExistsError.create("Entity already exists", e))
       else if e.name is "ValidationError"
         return Promise.reject(SpurErrors.ValidationError.create(e.message).setData(e.errors))
       else
         return Promise.reject(e)
-
-    disconnect:()->
-      Promise.promisify(mongoose.disconnect, mongoose)()
-        .tap ()->
-          Logger.info "Disconnected from mongodb"
-        .catch (e)->
-          Logger.error "Error disconnecting from mongodb", e
-          Promise.reject(e)

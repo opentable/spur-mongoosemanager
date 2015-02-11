@@ -1,9 +1,9 @@
 describe "findOneOrCreatePlugin", ->
 
   beforeEach ()->
-    injector().inject (@findOneOrCreatePlugin, @MongooseManager, @mongoose, @Promise)=>
+    injector().inject (@findOneOrCreatePlugin, @MongooseManager, @mongoose, @Promise, @config)=>
 
-    @MongooseManager.connect()
+    @MongooseManager.connect(@config.Mongo.ConnectionUrl)
 
   afterEach ()->
     @MongooseManager.disconnect()
@@ -21,7 +21,7 @@ describe "findOneOrCreatePlugin", ->
       })
       @Schema.plugin(@findOneOrCreatePlugin)
       @Model = @mongoose.model "find-or-create", @Schema
-      @MongooseManager.promisifyAll()
+      @MongooseManager._promisifyAll()
 
       @Model.removeAsync().then ()=>
         @Model.createAsync({name:"first", description:"original"})

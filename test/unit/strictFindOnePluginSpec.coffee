@@ -1,9 +1,9 @@
 describe "strictFindOnePlugin", ->
 
   beforeEach ()->
-    injector().inject (@strictFindOnePlugin, @MongooseManager, @mongoose, @Promise)=>
+    injector().inject (@strictFindOnePlugin, @MongooseManager, @mongoose, @Promise, @config)=>
 
-    @MongooseManager.connect()
+    @MongooseManager.connect(@config.Mongo.ConnectionUrl)
 
   afterEach ()->
     @MongooseManager.disconnect()
@@ -21,7 +21,7 @@ describe "strictFindOnePlugin", ->
       })
       @Schema.plugin(@strictFindOnePlugin)
       @Model = @mongoose.model "strict-find-one", @Schema
-      @MongooseManager.promisifyAll()
+      @MongooseManager._promisifyAll()
       @Model.removeAsync().then ()=>
         @Model.createAsync({name:"first", description:"original"})
 
