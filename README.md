@@ -20,15 +20,11 @@ $ npm install spur-mongoosemanager --save
 ```javascript
 var spur = require("spur-ioc");
 var spurMongoosemanager = require("spur-mongoosemanager");
+var spurCommon = require("spur-common");
 
 module.exports = function(){
   // define a  new injector
   var ioc = spur.create("demo");
-
-  // register node modules to be injected
-  ioc.registerLibraries({
-    ...
-  });
 
   // register already constructed objects such as globals
   ioc.registerDependencies({
@@ -41,6 +37,7 @@ module.exports = function(){
   ]);
 
   // THIS IS THE IMPORTANT PART: Merge the spur-mongoosemanager dependencies to your local container
+  ioc.merge(spurCommon())
   ioc.merge(spurMongoosemanager())
 
   return ioc;
