@@ -1,6 +1,7 @@
 mongoomise = require "mongoomise"
 
 module.exports = (mongoose, Logger, Promise, SpurErrors)->
+
   new class MongooseManager
 
     connect:(@connectionUrl, @connectionOptions = {})->
@@ -12,7 +13,7 @@ module.exports = (mongoose, Logger, Promise, SpurErrors)->
     disconnect:()->
       Promise.promisify(mongoose.disconnect, mongoose)()
         .tap ()->
-          Logger.info "MongooseManager: Disconnected from mongodb"
+          Logger.log "MongooseManager: Disconnected from mongodb"
         .catch (e)->
           Logger.error "MongooseManager: Error disconnecting from mongodb", e
           Promise.reject(e)
@@ -22,23 +23,21 @@ module.exports = (mongoose, Logger, Promise, SpurErrors)->
         throw new Error("MongooseManager: Missing mongodb connection url")
 
     _makeConnection:()->
-      Logger.info 'MongooseManager: Attempting to connect to mongo'
+      Logger.log 'MongooseManager: Attempting to connect to mongo'
 
       connectPromise = Promise.promisify(mongoose.connect, mongoose)(@connectionUrl, @connectionOptions)
         .tap ()->
-          Logger.info("MongooseManager: Connected to mongodb")
+          Logger.log("MongooseManager: Connected to mongodb")
         .catch (e)->
           Logger.error("MongooseManager: Mongodb connection error", e)
           Promise.reject(e)
 
     _addDummySchemaToMongoose:()->
-      # TODO: See if there is a better way to prevent mongoose from hanging when no schema is present.
       dummySchema = mongoose.Schema({
         name: String
       })
 
       dummy = mongoose.model('dummy', dummySchema)
-
 
     _promisifyAll:()->
       mongoomise.promisifyAll(mongoose, {
