@@ -25,6 +25,8 @@
   ],
   "license": "MIT",
   "keywords": [
+    "spur",
+    "spur-framework",
     "mongo",
     "mongoose",
     "extensions"
