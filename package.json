@@ -1,7 +1,7 @@
 {
   "name": "spur-mongoosemanager",
-  "version": "0.0.3",
-  "description": "A very simple node module that gives a generic mongoose manager.",
+  "version": "0.0.4",
+  "description": "A mongoose manager wrapper that provides some common utilities and extends it to support promises.",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -25,6 +25,8 @@
   ],
   "license": "MIT",
   "keywords": [
+    "spur",
+    "spur-framework",
     "mongo",
     "mongoose",
     "extensions"
@@ -38,8 +40,8 @@
   },
   "homepage": "https://github.com/opentable/spur-mongoosemanager",
   "dependencies": {
-    "spur-ioc": "latest",
-    "coffee-script": "^1.8.0",
+    "coffee-script": "1.9.1",
+    "spur-ioc": "^0.1.2",
     "mongoose-timestamp": "^0.4.0",
     "mongoose": "^3.8.22",
     "mongoomise": "0.0.8"

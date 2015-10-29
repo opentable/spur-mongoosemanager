@@ -11,7 +11,6 @@ describe "strictFindOnePlugin", ->
   it "should exist", ->
     expect(@strictFindOnePlugin).to.exist
 
-
   describe "db tests", ->
 
     beforeEach ->
@@ -19,9 +18,11 @@ describe "strictFindOnePlugin", ->
         name:String
         description:String
       })
+
       @Schema.plugin(@strictFindOnePlugin)
       @Model = @mongoose.model "strict-find-one", @Schema
       @MongooseManager._promisifyAll()
+
       @Model.removeAsync().then ()=>
         @Model.createAsync({name:"first", description:"original"})
 
