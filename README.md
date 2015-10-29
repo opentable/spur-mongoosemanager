@@ -2,8 +2,6 @@
 
 A mongoose manager wrapper that provides some common utilities and extends it to support promises.
 
-The project is still a work in progress. We are in the middle of making adjustments and are starting to dogfood the module in our own applications.
-
 [![NPM version](https://badge.fury.io/js/spur-mongoosemanager.png)](http://badge.fury.io/js/spur-mongoosemanager)
 [![Build Status](https://travis-ci.org/opentable/spur-mongoosemanager.png?branch=master)](https://travis-ci.org/opentable/spur-mongoosemanager)
 
