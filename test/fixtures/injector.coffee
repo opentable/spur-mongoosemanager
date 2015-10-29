@@ -1,5 +1,5 @@
-spur = require "spur-ioc"
-spurCommon = require "spur-common"
+spur          = require "spur-ioc"
+spurCommon    = require "spur-common"
 localInjector = require "../../src/injector"
 
 module.exports = ()->

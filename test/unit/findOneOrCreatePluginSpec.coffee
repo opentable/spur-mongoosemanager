@@ -11,7 +11,6 @@ describe "findOneOrCreatePlugin", ->
   it "should exist", ->
     expect(@findOneOrCreatePlugin).to.exist
 
-
   describe "db tests", ->
 
     beforeEach ->
@@ -19,13 +18,13 @@ describe "findOneOrCreatePlugin", ->
         name:String
         description:String
       })
+
       @Schema.plugin(@findOneOrCreatePlugin)
       @Model = @mongoose.model "find-or-create", @Schema
       @MongooseManager._promisifyAll()
 
       @Model.removeAsync().then ()=>
         @Model.createAsync({name:"first", description:"original"})
-
 
     it "findOneOrCreatePlugin - get existing", (done)->
 
