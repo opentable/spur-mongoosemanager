@@ -1,6 +1,6 @@
 {
   "name": "spur-mongoosemanager",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A mongoose manager wrapper that provides some common utilities and extends it to support promises.",
   "main": "index.js",
   "directories": {
