@@ -5,6 +5,10 @@ A mongoose manager wrapper that provides some common utilities and extends it to
 [![NPM version](https://badge.fury.io/js/spur-mongoosemanager.png)](http://badge.fury.io/js/spur-mongoosemanager)
 [![Build Status](https://travis-ci.org/opentable/spur-mongoosemanager.png?branch=master)](https://travis-ci.org/opentable/spur-mongoosemanager)
 
+# `Deprecated`
+
+This package is no longer going to be maintained. Teams have chosen to use the Mongoose directly because it allows them to customize their implementation as they choose and it's less prescriptive. 
+
 # About the Spur Framework
 
 The Spur Framework is a collection of commonly used Node.JS libraries used to create common application types with shared libraries.
@@ -114,8 +118,6 @@ module.exports = (Diner, Promise) ->
 injector = require "./src/injector"
 
 injector().inject (MongooseManager)->
-
-  UncaughtHander.listen()
 
   # Initiate the connection
   MongooseManger.connect()
